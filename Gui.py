@@ -4,6 +4,8 @@ import tkinter as tk
 def display_sudoku(matrix1,matrix2,text,color):
 
 
+
+
     root = tk.Tk()
     root.title("Soduku")
     canvas = tk.Canvas(root, width=380, height=500)

@@ -1,6 +1,7 @@
 from copy import deepcopy
 from Gui import display_sudoku
-
+from threading import Thread,Event
+import time
 
 
     
@@ -67,10 +68,19 @@ def recursive(board):
                     board[i][j] = '.'
                     return False
 
-display_sudoku(board,board,'Sudoku Unsolved','Red')
-b = deepcopy(board)
-x = recursive(board)
-if x:
-    display_sudoku(board,b,'Sudoku Solved','Green')
+
+
+gui_thread = Thread(target = display_sudoku,args = (board,board,'Sudoku Unsolved','Red'))
+gui_thread.start()
+time.sleep(2)
+
+copy_board = deepcopy(board)
+outcome = recursive(board)
+
+if outcome:
+    gui_thread = Thread(target = display_sudoku,args = (board,copy_board,'Sudoku Solved','Green'))
+    gui_thread.start()
 else:
-    display_sudoku(board,b,'No solution exist','Red')
+    gui_thread = Thread(target = display_sudoku,args = (board,copy_board,'NO Solution Exist','Red'))
+    gui_thread.start()
+gui_thread.join()
