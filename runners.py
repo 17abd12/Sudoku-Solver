@@ -1,10 +1,13 @@
 from copy import deepcopy
 from Gui import display_sudoku
 
+
+
     
+# Just change the Board  for custom sudo board
 board = [
  ["5","3",".",".","7",".",".",".","."]
-,["6",".",".","1","9","5",".",".","."]
+,["6",".",".","1","9",".",".",".","."]
 ,[".","9","8",".",".",".",".","6","."]
 ,["8",".",".",".","6",".",".",".","3"]
 ,["4",".",".","8",".","3",".",".","1"]
@@ -60,11 +63,14 @@ def recursive(board):
                     if result:
                         return True
                 else:
-                    print('No Such solution')
+                    print('Running')
                     board[i][j] = '.'
                     return False
 
-display_sudoku(board,board,'Sudoku Unsolved')
+display_sudoku(board,board,'Sudoku Unsolved','Red')
 b = deepcopy(board)
-recursive(board)
-display_sudoku(board,b,'Soduko Solved')
+x = recursive(board)
+if x:
+    display_sudoku(board,b,'Sudoku Solved','Green')
+else:
+    display_sudoku(board,b,'No solution exist','Red')
